@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flex: 1,
-    alignItems: 'center',
+    paddingTop: 10,
+    alignItems: 'flex-end',
     justifyContent: 'flex-end',
     paddingLeft: 20,
     paddingRight: 20
