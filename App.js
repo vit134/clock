@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import moment from 'moment';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 /* export default class App extends React.Component {
   render() {
@@ -10,26 +12,69 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
     );
   }
 } */
-
-export default class UselessTextInput extends Component {
+class Time extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'Useless Placeholder' };
+    this.state = {date: new Date()};
+
+    this.now = moment().format('LLLL');
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
+  render() {
+    return(
+      <View>
+        <Text style={styles.time}>{this.state.date.toLocaleTimeString()}</Text>
+      </View>
+    );
+  }
+}
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  changeTime() {
+
   }
 
   render() {
     return (
       <View style={styles.view}>
-        <View style={styles.content}></View>
+        <View style={styles.content}>
+          <View style={styles.topIcons}>
+            <Icon name="md-sync" size={40} color="#bf1313" />
+          </View>
+          <Time time={"12-45-23"}/>
+        </View>
         <View style={styles.nav}>
-          <View><Text>1</Text></View>
-          <View><Text>2</Text></View>
-          <View><Text>3</Text></View>
+          <Icon name="ios-timer" size={30} color="#bf1313" />
+          <Icon name="ios-alarm" size={30} color="#bf1313" />
+          <Icon name="ios-settings" size={30} color="#bf1313" />
         </View>
       </View>
     );
   }
 }
+
+const redColor = '#bf1313';
 
 const styles = StyleSheet.create({
   view: {
@@ -40,12 +85,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   content: {
-    
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  topIcons: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  time: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color: redColor
   },
   nav: {
     height: 60,
     borderTopWidth: 1,
-    borderColor: 'red',
+    borderColor: redColor,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -58,11 +121,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    backgroundColor: 'red',
   }
 });
