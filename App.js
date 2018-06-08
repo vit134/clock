@@ -51,18 +51,14 @@ export default class App extends Component {
     super(props);
   }
 
-  changeTime() {
-
-  }
-
   render() {
     return (
       <View style={styles.view}>
         <View style={styles.content}>
           <View style={styles.topIcons}>
-            <Icon name="md-sync" size={40} color="#bf1313" />
+            <Icon name="md-sync" size={30} color="#bf1313" />
           </View>
-          <Time time={"12-45-23"}/>
+          <Time/>
         </View>
         <View style={styles.nav}>
           <Icon name="ios-timer" size={30} color="#bf1313" />
