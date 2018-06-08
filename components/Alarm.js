@@ -47,8 +47,8 @@ class AlarmItem extends Component {
     return (
       <View style={styles.alarmItem}>
         <View>
-          <Text style={styles.alarmItemTime}>06:42</Text>
-          <Text style={styles.alarmItemTitle}>Будильник</Text>
+          <Text style={styles.alarmItemTime}>{this.props.time}</Text>
+          <Text style={styles.alarmItemTitle}>{this.props.title}</Text>
         </View>
         <View>
           <Switch style={styles.alarmItemSwitch} onValueChange={this.toggleSwitch.bind(this)} value = {this.state.switchEnabled}/>

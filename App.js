@@ -16,6 +16,12 @@ const TabIcon = ({ focused, title, iconName }) => {
   );
 }
 
+const alarmChange = () => {
+  return(
+    <Text>Change</Text>
+  )
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +34,7 @@ export default class App extends Component {
           <Scene key="Time" iconName={"ios-timer"} icon={TabIcon} title={"Time"}>
             <Scene key="time" component={Time} />
           </Scene>
-          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon}>
+          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon} renderLeftButton={alarmChange}>
             <Scene key="alarm" component={Alarm} title="Alarm"/>
           </Scene>
           <Scene key="settings" title="Settings" iconName={"ios-settings"} icon={TabIcon}>
