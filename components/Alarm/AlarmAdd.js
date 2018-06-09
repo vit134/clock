@@ -40,6 +40,12 @@ class AlarmAdd extends Component {
         this.setDate = this.setDate.bind(this);
     }
 
+    updateData = (value) => {
+        this.setState({
+            title: value 
+        })
+     }
+
     setDate(newDate) {
       this.setState({chosenDate: newDate})
     }
