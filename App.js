@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Router, Scene, Stack, Actions  } from 'react-native-router-flux';
+import { Router, Scene, Modal, Actions  } from 'react-native-router-flux';
 
 
-import Alarm from './components/Alarm';
+import Alarm from './components/Alarm/Alarm';
+import AlarmAdd from './components/Alarm/AlarmAdd';
+import AlarmTitleModal from './components/Alarm/AlarmTitleModal';
 import Settings from './components/Settings';
 import Time from './components/Time';
 
@@ -16,11 +18,9 @@ const TabIcon = ({ focused, title, iconName }) => {
   );
 }
 
-const alarmChange = () => {
-  return(
-    <Text>Change</Text>
-  )
-}
+const changeAlarm = () => (<Text style={styles.leftButtonStyle}>Change</Text>);
+
+const addAlarm = () => (<Text style={styles.rightButtonStyle} onPress={() => Actions.alarmAdd()}>+</Text>);
 
 export default class App extends Component {
   constructor(props) {
@@ -30,12 +30,14 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBarStyle}>
+        <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBarStyle} navigationBarStyle={styles.navigationBarStyle}>
           <Scene key="Time" iconName={"ios-timer"} icon={TabIcon} title={"Time"}>
             <Scene key="time" component={Time} />
           </Scene>
-          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon} renderLeftButton={alarmChange}>
-            <Scene key="alarm" component={Alarm} title="Alarm"/>
+          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon}>
+            <Scene key="alarm" component={Alarm} title="Alarm" renderLeftButton={changeAlarm} renderRightButton={addAlarm} />
+            <Scene key="alarmAdd" component={AlarmAdd} title="Add alarm"/>
+            <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'}/>
           </Scene>
           <Scene key="settings" title="Settings" iconName={"ios-settings"} icon={TabIcon}>
             <Scene key="settings" component={Settings} title="Settings"/>
@@ -50,5 +52,19 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: '#fff',
     paddingTop: 5
+  },
+  navigationBarStyle: {
+    paddingTop: 10,
+    paddingHorizontal: 10,
+  },
+  leftButtonStyle: {
+    color: '#fc363b',
+    fontSize: 16,
+    marginTop: 5,
+  },
+  rightButtonStyle: {
+    color: '#fc363b',
+    fontWeight: 'bold',
+    fontSize: 34
   }
 });

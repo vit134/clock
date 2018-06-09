@@ -59,13 +59,18 @@ class AlarmItem extends Component {
 }
 
 class Alarm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      alarms: data
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        {data.map((el, i) => {
+        {this.state.alarms.map((el, i) => {
           return <AlarmItem key={i} {...el} />
-        })}
-        
+        })}     
       </View>
     );
   }
