@@ -11,8 +11,13 @@ import { Actions } from 'react-native-router-flux';;
 class AlarmTitleModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { text: 'Alarm' };
-        console.log(props);
+        this.state = { text: props.title || 'Alarm' };
+        this.submitState = this.submitState.bind(this);
+    }
+
+    submitState() {
+        this.props.updateTitle(this.state.text);
+        Actions.pop();
     }
 
     render() {
@@ -22,6 +27,9 @@ class AlarmTitleModal extends Component {
                     style={styles.input}
                     onChangeText={(text) => this.setState({text})}
                     value={this.state.text}
+                    autoFocus={true}
+                    returnKeyType='done'
+                    onSubmitEditing={this.submitState}
                 />
             </View>
         )

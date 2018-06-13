@@ -18,9 +18,13 @@ const TabIcon = ({ focused, title, iconName }) => {
   );
 }
 
-const changeAlarm = () => (<Text style={styles.leftButtonStyle}>Change</Text>);
+const changeAlarm = () => (<Text style={styles.topButtons}>Change</Text>);
 
-const addAlarm = () => (<Text style={styles.rightButtonStyle} onPress={() => Actions.alarmAdd()}>+</Text>);
+const addAlarm = () => (<Text style={styles.plusButtonStyle} onPress={() => Actions.alarmAdd()}>+</Text>);
+
+const saveAlarm = () => (<Text style={styles.topButtons} onPress={() => Actions.pop()}>Save</Text>)
+
+const cancelAddAlarm = () => (<Text style={styles.topButtons} onPress={() => Actions.pop()}>Cancel</Text>)
 
 export default class App extends Component {
   constructor(props) {
@@ -36,8 +40,14 @@ export default class App extends Component {
           </Scene>
           <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon}>
             <Scene key="alarm" component={Alarm} title="Alarm" renderLeftButton={changeAlarm} renderRightButton={addAlarm} />
-            <Scene key="alarmAdd" component={AlarmAdd} title="Add alarm"/>
-            <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'}/>
+            <Scene key="alarmAdd"
+              component={AlarmAdd}
+              title="Add alarm"
+              backTitle={'Cancel'}
+              renderRightButton={saveAlarm}
+              renderLeftButton={cancelAddAlarm}
+            />
+            <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'} backTitle={'Cancel'}/>
           </Scene>
           <Scene key="settings" title="Settings" iconName={"ios-settings"} icon={TabIcon}>
             <Scene key="settings" component={Settings} title="Settings"/>
@@ -55,16 +65,16 @@ const styles = StyleSheet.create({
   },
   navigationBarStyle: {
     paddingTop: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
-  leftButtonStyle: {
-    color: '#fc363b',
-    fontSize: 16,
-    marginTop: 5,
-  },
-  rightButtonStyle: {
+  plusButtonStyle: {
     color: '#fc363b',
     fontWeight: 'bold',
     fontSize: 34
+  },
+  topButtons: {
+    color: '#fc363b',
+    fontSize: 16,
+    marginTop: 5
   }
 });

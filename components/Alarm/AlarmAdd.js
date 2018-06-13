@@ -40,7 +40,8 @@ class AlarmAdd extends Component {
         this.setDate = this.setDate.bind(this);
     }
 
-    updateData = (value) => {
+    updateTitle = (value) => {
+        console.log(value)
         this.setState({
             title: value 
         })
@@ -52,7 +53,7 @@ class AlarmAdd extends Component {
 
     onValueChange (value) {
         this.setState({
-            selected1 : value
+            selected : value
         });
     }
 
@@ -68,7 +69,7 @@ class AlarmAdd extends Component {
                 <View style={styles.row}>
                     <View><Text style={styles.rowText}>Title</Text></View>
                     <View>
-                        <Text onPress={() => Actions.alarmTitleModal()}>{this.state.title}</Text>
+                        <Text onPress={() => Actions.alarmTitleModal({updateTitle: this.updateTitle, title: this.state.title})}>{this.state.title}</Text>
                     </View>
                 </View>
                 <View style={styles.row}>

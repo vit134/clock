@@ -3,12 +3,33 @@ import {
   StyleSheet,
   Text,
   View,
-  Switch
+  Switch,
+  ScrollView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux'; // New code
 
 const data = [
+  {
+    time: '06:42',
+    title: 'будильник1',
+    enabled: true
+  },
+  {
+    time: '07:15',
+    title: 'будильник2',
+    enabled: false
+  },
+  {
+    time: '16:42',
+    title: 'будильник3',
+    enabled: true
+  },
+  {
+    time: '21:15',
+    title: 'будильник4',
+    enabled: false
+  },
   {
     time: '06:42',
     title: 'будильник1',
@@ -67,20 +88,17 @@ class Alarm extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {this.state.alarms.map((el, i) => {
           return <AlarmItem key={i} {...el} />
         })}     
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
     backgroundColor: '#fff',
   },
   alarmItem: {
@@ -104,7 +122,7 @@ const styles = StyleSheet.create({
   },
   alarmItemSwitch: {
     marginTop: 10,
-    transform: [{scaleX: 1.4}, {scaleY: 1.4}]
+    transform: [{scaleX: 1.2}, {scaleY: 1.2}]
   }
 });
 
