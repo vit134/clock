@@ -68,8 +68,8 @@ class AlarmItem extends Component {
     return (
       <View style={styles.alarmItem}>
         <View>
-          <Text style={styles.alarmItemTime}>{this.props.time}</Text>
-          <Text style={styles.alarmItemTitle}>{this.props.title}</Text>
+          <Text style={this.state.switchEnabled ? styles.alarmItemTime : styles.alarmItemTimeDisable}>{this.props.time}</Text>
+          <Text style={this.state.switchEnabled ? styles.alarmItemTitle : styles.alarmItemTitleDisabled}>{this.props.title}</Text>
         </View>
         <View>
           <Switch style={styles.alarmItemSwitch} onValueChange={this.toggleSwitch.bind(this)} value = {this.state.switchEnabled}/>
@@ -86,6 +86,7 @@ class Alarm extends Component {
       alarms: data
     }
   }
+  
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -117,8 +118,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#222'
   },
+  alarmItemTimeDisable: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    color: '#cacaca'
+  },
   alarmItemTitle: {
     color: '#222'
+  },
+  alarmItemTitleDisabled: {
+    color: '#cacaca'
   },
   alarmItemSwitch: {
     marginTop: 10,

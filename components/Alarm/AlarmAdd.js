@@ -41,7 +41,6 @@ class AlarmAdd extends Component {
     }
 
     updateTitle = (value) => {
-        console.log(value)
         this.setState({
             title: value 
         })
