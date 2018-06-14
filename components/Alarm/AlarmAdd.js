@@ -5,7 +5,8 @@ import {
     View,
     DatePickerIOS,
     Switch,
-    TextInput
+    TextInput,
+    Picker
 } from 'react-native';
 
 import { Scene, Actions } from 'react-native-router-flux';
@@ -34,17 +35,27 @@ class AlarmAdd extends Component {
         super(props);
         this.state = { 
             chosenDate: new Date(),
-            title: 'Alarm'
+            title: 'Alarm',
+            showOptions: false,
+            repeat: 'Never'
         };
 
         this.setDate = this.setDate.bind(this);
+        this.updateTitle = this.updateTitle.bind(this);
+        this.updateRepeat = this.updateRepeat.bind(this);
     }
 
-    updateTitle = (value) => {
+    updateTitle(value) {
         this.setState({
             title: value 
         })
      }
+
+    updateRepeat(value) {
+        this.setState({
+            repeat: value 
+        })
+    }
 
     setDate(newDate) {
       this.setState({chosenDate: newDate})
@@ -77,6 +88,15 @@ class AlarmAdd extends Component {
                         <SwitchComp/>
                     </View>
                 </View>
+                <View style={styles.row}>
+                    <View><Text style={styles.rowText}>Repeat</Text></View>
+                    <View>
+                        <View>
+                            <Text onPress={() => Actions.alarmRepeatModal({updateRepeat: this.updateRepeat, title: this.state.repeat})}>{this.state.repeat}</Text>
+                        </View>
+                    </View>
+                </View>
+               
             </View>
         );
     }
@@ -99,7 +119,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 15,
+        height: 50,
         width: '100%',
         borderBottomColor: '#eee',
         borderBottomWidth: 1,

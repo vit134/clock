@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Alarm from './components/Alarm/Alarm';
 import AlarmAdd from './components/Alarm/AlarmAdd';
 import AlarmTitleModal from './components/Alarm/AlarmTitleModal';
+import AlarmRepeatModal from './components/Alarm/AlarmRepeatModal';
 import Settings from './components/Settings';
 import Time from './components/Time';
 
@@ -37,6 +38,7 @@ export default class App extends Component {
             <Scene key="alarm" component={Alarm} title="Alarm" renderLeftButton={changeAlarm} renderRightButton={addAlarm} />
             <Scene key="alarmAdd"  component={AlarmAdd} title="Add alarm" backTitle={'Cancel'} renderRightButton={saveAlarm} renderLeftButton={cancelAddAlarm} />
             <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'} backTitle={'Cancel'}/>
+            <Scene key="alarmRepeatModal" component={AlarmRepeatModal} direction="vertical" backTitle={'Cancel'}  renderRightButton={saveAlarm} renderLeftButton={cancelAddAlarm}/>
           </Scene>
           <Scene key="settings" title="Settings" iconName={"ios-settings"} icon={TabIcon}>
             <Scene key="settings" component={Settings} title="Settings"/>
