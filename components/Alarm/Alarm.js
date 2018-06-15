@@ -6,8 +6,12 @@ import {
   Switch,
   ScrollView
 } from 'react-native';
-
 import { Actions } from 'react-native-router-flux'; // New code
+
+import { Container, Header, Title, Content, Left, Right, Body } from 'native-base';
+import s from 'globalStyles'
+
+
 
 const data = [
   {
@@ -57,7 +61,15 @@ class AlarmItem extends Component {
     super(props);
     this.state = {
         switchEnabled: this.props.enabled,
+        alarms: data
     }
+  }
+
+  
+
+  componentWillReceiveProps(props){
+    console.log('component: componentWillReceiveProps');
+    console.log(props);
   }
 
   toggleSwitch(value) {
@@ -88,12 +100,26 @@ class Alarm extends Component {
   }
   
   render() {
+    console.log(this.props.newAlarm);
     return (
-      <ScrollView style={styles.container}>
-        {this.state.alarms.map((el, i) => {
-          return <AlarmItem key={i} {...el} />
-        })}     
-      </ScrollView>
+      <Container>
+        <Header style={s.navBarStyle}>
+            <Left>
+              <Text style={s.topButtons}>Change</Text>
+            </Left>
+            <Body>
+                <Title>Alarm</Title>
+            </Body>
+            <Right>
+              <Text style={styles.plusButtonStyle} onPress={() => Actions.alarmAdd()}>+</Text>
+            </Right>
+        </Header>
+        <Content style={s.container}>
+          {this.state.alarms.map((el, i) => {
+            return <AlarmItem key={i} {...el} />
+          })}     
+        </Content>
+      </Container>
     );
   }
 }
@@ -132,6 +158,10 @@ const styles = StyleSheet.create({
   alarmItemSwitch: {
     marginTop: 10,
     transform: [{scaleX: 1.2}, {scaleY: 1.2}]
+  },
+  plusButtonStyle: {
+    color: '#fc363b',
+    fontSize: 34
   }
 });
 

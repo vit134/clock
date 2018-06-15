@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 
 import { CheckBox } from 'react-native-elements';
-
+import { Container, Header, Title, Content, Left, Right, Body } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import s from 'globalStyles'
 
 const repeatOption = [
     {
@@ -73,29 +74,44 @@ class AlarmRepeatModal extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                {
-                  repeatOption.map((item, i) => {
-                      return (
-                        <TouchableHighlight onPress={() => this._press(item.value)} key={i} underlayColor='rgba(255,255,255, 0.3)'>
-                            <View style={styles.listItem}>
-                                <Text>{item.key}</Text>                    
-                                <CheckBox
-                                    title=''
-                                    iconRight
-                                    checkedColor='#fc363b'
-                                    iconType='ionicon'
-                                    checkedIcon='md-checkmark'
-                                    uncheckedIcon={''}
-                                    checked={this.state.checked.indexOf(item.value) !== -1}
-                                    containerStyle={styles.checkBox}
-                                />
-                            </View>
-                        </TouchableHighlight>
-                      )
-                  })  
-                }
-            </View>
+            <Container>
+                <Header style={s.navBarStyle}>
+                    <Left>
+                        <Text style={s.topButtons} onPress={() => Actions.pop()}>Cancel</Text>
+                    </Left>
+                    <Body>
+                        <Title>Alarm repeat</Title>
+                    </Body>
+                    <Right>
+                        <Text style={s.topButtons} onPress={() => Actions.pop()}>Save</Text>
+                    </Right>
+                </Header>
+                <Content style={s.container}>
+                    <View>
+                        {
+                            repeatOption.map((item, i) => {
+                                return (
+                                    <TouchableHighlight onPress={() => this._press(item.value)} key={i} underlayColor='rgba(255,255,255, 0.3)'>
+                                        <View style={styles.listItem}>
+                                            <Text>{item.key}</Text>                    
+                                            <CheckBox
+                                                title=''
+                                                iconRight
+                                                checkedColor='#fc363b'
+                                                iconType='ionicon'
+                                                checkedIcon='md-checkmark'
+                                                uncheckedIcon={''}
+                                                checked={this.state.checked.indexOf(item.value) !== -1}
+                                                containerStyle={styles.checkBox}
+                                            />
+                                        </View>
+                                    </TouchableHighlight>
+                                )
+                            })  
+                        }
+                    </View>
+                </Content>
+            </Container>
         )
     }
 }
@@ -103,8 +119,12 @@ class AlarmRepeatModal extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         backgroundColor: '#fff',
+    },
+    navBarStyle: {
+      paddingTop: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
     },
     checkBox: {
         backgroundColor: '#fff',

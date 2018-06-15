@@ -6,7 +6,10 @@ import {
     TextInput
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';;
+import { Container, Header, Title, Content, Left, Right, Body, Icon, List, ListItem } from 'native-base';
+import s from 'globalStyles'
+
+import { Actions } from 'react-native-router-flux';
 
 class AlarmTitleModal extends Component {
     constructor(props) {
@@ -22,16 +25,30 @@ class AlarmTitleModal extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
-                    autoFocus={true}
-                    returnKeyType='done'
-                    onSubmitEditing={this.submitState}
-                />
-            </View>
+            <Container>
+                <Header style={s.navBarStyle}>
+                    <Left>
+                        <Text style={s.topButtons} onPress={() => Actions.pop()}>Cancel</Text>
+                    </Left>
+                    <Body>
+                        <Title>Alarm repeat</Title>
+                    </Body>
+                    <Right>
+                        <Text style={s.topButtons} onPress={() => Actions.pop()}>Save</Text>
+                    </Right>
+                </Header>
+                <View style={[s.container, styles.container]}>
+                    <View>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={(text) => this.setState({text})}
+                            value={this.state.text}
+                            returnKeyType='done'
+                            onSubmitEditing={this.submitState}
+                        />
+                    </View>
+                </View>
+            </Container>
         )
     }
 }

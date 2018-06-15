@@ -1,11 +1,23 @@
+
+/**
+ * @providesModule globalStyles
+ */
+
 import { StyleSheet } from 'react-native';
-const globalCss = StyleSheet.create({
+
+export default globalStyles =  StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#fff',
-    }
+    },
+    navBarStyle: {
+      paddingTop: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
+    },
+    topButtons: {
+        color: '#fc363b',
+        fontSize: 16,
+        marginTop: 5
+      },
 });
-  
-export default globalCss;

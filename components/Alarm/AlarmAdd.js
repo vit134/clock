@@ -4,31 +4,17 @@ import {
     Text,
     View,
     DatePickerIOS,
-    Switch,
     TextInput,
-    Picker
+    Picker,
+    TouchableOpacity,
+    
 } from 'react-native';
 
-import { Scene, Actions } from 'react-native-router-flux';
+import { Container, Header, Title, Content, Left, Right, Body, Icon, List, ListItem } from 'native-base';
+import { Actions } from 'react-native-router-flux';
+import s from 'globalStyles'
 
-class SwitchComp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            switchEnabled: this.props.enabled,
-        }
-    }
-    
-    toggleSwitch(value) {
-        this.setState({switchEnabled: value})
-    }
-
-    render(){
-        return (
-            <Switch onValueChange={this.toggleSwitch.bind(this)} value = {this.state.switchEnabled}/>
-        )
-    }
-}
+import Switch from '../Switch';
 
 class AlarmAdd extends Component {
     constructor(props) {
@@ -36,13 +22,14 @@ class AlarmAdd extends Component {
         this.state = { 
             chosenDate: new Date(),
             title: 'Alarm',
-            showOptions: false,
+            repeatSong: false,
             repeat: 'Never'
         };
 
         this.setDate = this.setDate.bind(this);
         this.updateTitle = this.updateTitle.bind(this);
         this.updateRepeat = this.updateRepeat.bind(this);
+        this.updateRepeatSong = this.updateRepeatSong.bind(this);
     }
 
     updateTitle(value) {
@@ -57,57 +44,66 @@ class AlarmAdd extends Component {
         })
     }
 
+    updateRepeatSong(value) {
+        this.setState({
+            repeatSong: value
+        })
+    }
+
     setDate(newDate) {
       this.setState({chosenDate: newDate})
     }
 
-    onValueChange (value) {
-        this.setState({
-            selected : value
-        });
-    }
-
     render() {
         return (
-            <View style={styles.container}>
-                <DatePickerIOS
-                    date={this.state.chosenDate}
-                    onDateChange={this.setDate}
-                    mode={'time'}
-                    style={styles.datePicker}
-                />
-                <View style={styles.row}>
-                    <View><Text style={styles.rowText}>Title</Text></View>
-                    <View>
-                        <Text onPress={() => Actions.alarmTitleModal({updateTitle: this.updateTitle, title: this.state.title})}>{this.state.title}</Text>
-                    </View>
-                </View>
-                <View style={styles.row}>
-                    <View><Text style={styles.rowText}>Repeat song</Text></View>
-                    <View>
-                        <SwitchComp/>
-                    </View>
-                </View>
-                <View style={styles.row}>
-                    <View><Text style={styles.rowText}>Repeat</Text></View>
-                    <View>
+            <Container>
+                <Header style={s.navBarStyle}>
+                    <Left>
+                        <Text style={s.topButtons} onPress={() => Actions.pop()}>Cancel</Text>
+                    </Left>
+                    <Body>
+                        <Title>Add Alarm</Title>
+                    </Body>
+                    <Right>
+                        <Text style={s.topButtons} onPress={() => Actions.popTo('alarm', {newAlarm: this.state})}>Save</Text>
+                    </Right>
+                </Header>
+                <Content style={s.container}>
+                    <DatePickerIOS
+                        date={this.state.chosenDate}
+                        onDateChange={this.setDate}
+                        mode={'time'}
+                        style={styles.datePicker}
+                    />
+                    <TouchableOpacity style={styles.row} onPress={() => Actions.alarmTitleModal({updateTitle: this.updateTitle, title: this.state.title})}>
+                        <View><Text style={styles.rowText}>Title</Text></View>
+                        <View style={styles.rowRightText}>
+                            <Text>{this.state.title}</Text>
+                            <Icon name={'ios-arrow-forward'} style={styles.arrowIcon}/>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.row}>
+                        <View><Text style={styles.rowText}>Repeat song</Text></View>
                         <View>
-                            <Text onPress={() => Actions.alarmRepeatModal({updateRepeat: this.updateRepeat, title: this.state.repeat})}>{this.state.repeat}</Text>
+                            <Switch cb={this.updateRepeatSong} enabled={this.state.repeatSong}/>
                         </View>
                     </View>
-                </View>
-               
-            </View>
+                    <TouchableOpacity style={styles.row} onPress={() => Actions.alarmRepeatModal({updateRepeat: this.updateRepeat, title: this.state.repeat})}>
+                        <View><Text style={styles.rowText}>Repeat</Text></View>
+                        <View>
+                            <View style={styles.rowRightText}>
+                                <Text>{this.state.repeat}</Text>
+                                <Icon name={'ios-arrow-forward'} style={styles.arrowIcon}/>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </Content>
+            </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#fff',
-    },
     datePicker: {
         paddingBottom: 10,
         borderBottomColor: '#eee',
@@ -127,6 +123,17 @@ const styles = StyleSheet.create({
     rowText: {
         color: '#222',
         fontSize: 14
+    },
+    rowRightText: {
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center'
+    },
+    arrowIcon: {
+        fontSize: 20,
+        color: '#848484',
+        marginLeft: 10,
+        marginTop: 3
     }
 })
   

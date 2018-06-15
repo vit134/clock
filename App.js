@@ -17,10 +17,6 @@ const TabIcon = ({ focused, title, iconName }) => {
     <Icon name={iconName} size={30} color={color} />
   );
 }
-const changeAlarm = () => (<Text style={styles.topButtons}>Change</Text>);
-const addAlarm = () => (<Text style={styles.plusButtonStyle} onPress={() => Actions.alarmAdd()}>+</Text>);
-const saveAlarm = () => (<Text style={styles.topButtons} onPress={() => Actions.pop()}>Save</Text>)
-const cancelAddAlarm = () => (<Text style={styles.topButtons} onPress={() => Actions.pop()}>Cancel</Text>)
 
 export default class App extends Component {
   constructor(props) {
@@ -34,11 +30,11 @@ export default class App extends Component {
           <Scene key="Time" iconName={"ios-timer"} icon={TabIcon} title={"Time"}>
             <Scene key="time" component={Time} />
           </Scene>
-          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon}>
-            <Scene key="alarm" component={Alarm} title="Alarm" renderLeftButton={changeAlarm} renderRightButton={addAlarm} />
-            <Scene key="alarmAdd"  component={AlarmAdd} title="Add alarm" backTitle={'Cancel'} renderRightButton={saveAlarm} renderLeftButton={cancelAddAlarm} />
-            <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'} backTitle={'Cancel'}/>
-            <Scene key="alarmRepeatModal" component={AlarmRepeatModal} direction="vertical" backTitle={'Cancel'}  renderRightButton={saveAlarm} renderLeftButton={cancelAddAlarm}/>
+          <Scene key="alarm" initial title="Alarm" iconName={"ios-alarm"} icon={TabIcon} >
+            <Scene key="alarm" component={Alarm} title="Alarm" hideNavBar/>
+            <Scene key="alarmAdd" component={AlarmAdd} title="Add alarm" hideNavBar/>
+            <Scene key="alarmTitleModal" component={AlarmTitleModal} direction="vertical" title={'Title'} hideNavBar/>
+            <Scene key="alarmRepeatModal" component={AlarmRepeatModal} direction="vertical" hideNavBar/>
           </Scene>
           <Scene key="settings" title="Settings" iconName={"ios-settings"} icon={TabIcon}>
             <Scene key="settings" component={Settings} title="Settings"/>
