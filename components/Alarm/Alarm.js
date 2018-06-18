@@ -65,13 +65,6 @@ class AlarmItem extends Component {
     }
   }
 
-  
-
-  componentWillReceiveProps(props){
-    console.log('component: componentWillReceiveProps');
-    console.log(props);
-  }
-
   toggleSwitch(value) {
     this.setState({switchEnabled: value})
   }
@@ -97,6 +90,18 @@ class Alarm extends Component {
     this.state = {
       alarms: data
     }
+  }
+
+  componentWillMount() {
+    console.log('Will mount Types')
+  }
+
+  componentWillUpdate() {
+    console.log("Will Update Types")
+  }
+
+  componentWillUnmount() {
+    console.log("will Unmont Types")
   }
   
   render() {

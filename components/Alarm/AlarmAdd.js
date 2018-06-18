@@ -65,7 +65,7 @@ class AlarmAdd extends Component {
                         <Title>Add Alarm</Title>
                     </Body>
                     <Right>
-                        <Text style={s.topButtons} onPress={() => Actions.popTo('alarm', {newAlarm: this.state})}>Save</Text>
+                        <Text style={s.topButtons} onPress={() => Actions.popTo('alarm', {somedata: 'result' })}>Save</Text>
                     </Right>
                 </Header>
                 <Content style={s.container}>
